@@ -120,11 +120,14 @@ body.lock {
 }
 
 /*=== NATIVE DATERANGEPICKER ===*/
+.date-wrap {
+  display: flex;
+}
 .date-picker {
   z-index: 50;
   position: relative;
   width: 100%;
-  max-width: 320px;
+  max-width: 540px;
   background: #fff;
   margin: 0 auto;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
@@ -187,6 +190,10 @@ body.lock {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
+.date-picker .dates .days-all {
+  display: flex;
+  justify-content: space-between;
+}
 .date-picker .dates .days .day {
   height: 31px;
   width: 31px;
@@ -210,9 +217,54 @@ body.lock {
   background-color: #fff;
   border-color: transparent;
 }
+.date-picker .dates .days-two {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.date-picker .dates .days-two .day {
+  height: 31px;
+  width: 31px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+.date-picker .dates .days-two .day:hover {
+  border: 1px solid #394756;
+}
+.date-picker .dates .days-two .day.selected {
+  background: #394756;
+  color: #fff;
+}
+.date-picker .dates .days-two .day.disabled {
+  cursor: not-allowed;
+  text-decoration: line-through;
+  color: #C4C4C4;
+  background-color: #fff;
+  border-color: transparent;
+}
 .date-picker .dates .week {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+}
+.date-picker .dates .week-all {
+  display: flex;
+  justify-content: space-between;
+}
+.date-picker .dates .week-2 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.date-picker .dates .week-2 .week-day {
+  height: 31px;
+  width: 31px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  color: #6E6E6E;
 }
 .date-picker .dates .week .week-day {
   height: 31px;
