@@ -17,6 +17,7 @@ $(document).ready(function () {
   const days_element_two = document.querySelector('.date-picker .dates .days-two');
 
   const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+  const monthsRename = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
   const week = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
   let date = new Date();
@@ -266,13 +267,11 @@ $(document).ready(function () {
     if (day < 10) {
       day = '0' + day;
     }
-    let month = d.getMonth() + 1;
-    if (month < 10) {
-      month = '0' + month;
-    }
+    let month = d.getMonth();
+    
     let year = d.getFullYear();
 
-    return day + ' / ' + month + ' / ' + year;
+    return day + ' ' + monthsRename[month] + ' ' + year;
   }
 
   /*=== /NATIVE DATERANGEPICKER ===*/
