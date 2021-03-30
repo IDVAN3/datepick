@@ -5,6 +5,7 @@ $(document).ready(function () {
       /*=== NATIVE DATERANGEPICKER ===*/
   const date_picker_element = document.querySelector('.date-picker');
   const selected_date_element = document.querySelector('.date-picker .selected-date');
+  const selected_date_element_two = document.querySelector('.date-picker .selected-date-two');
   const dates_element = document.querySelector('.date-picker .dates');
   const mth_element = document.querySelector('.date-picker .dates .month .mth');
   const mth_element_two = document.querySelector('.date-picker .dates .month .mth-two');
@@ -33,6 +34,8 @@ $(document).ready(function () {
   let selectedMonth = month;
   let selectedYear = year;
   let monthPlus = month + 1;
+  let prevDay = 40;
+  let prevDay2 = 40;
   
 
   mth_element.textContent = months[month] + ' ' + year;
@@ -201,9 +204,22 @@ $(document).ready(function () {
           selectedDay = (i + 1);
           selectedMonth = month;
           selectedYear = year;
-  
-          selected_date_element.textContent = formatDate(selectedDate);
-          selected_date_element.dataset.value = selectedDate;
+          
+          if(selectedDay > prevDay) {
+            selected_date_element_two.textContent = formatDate(selectedDate);
+            selected_date_element_two.dataset.value = selectedDate;
+          }
+          // else if (prevDay != 40 && selectedMonth < month) {
+            // selected_date_element.textContent = formatDate(selectedDate);
+            // selected_date_element.dataset.value = selectedDate;
+            // console.log(prevDay)
+          // }
+          else {
+            selected_date_element_two.innerHTML = '';
+            selected_date_element.textContent = formatDate(selectedDate);
+            selected_date_element.dataset.value = selectedDate;
+          }
+          prevDay = selectedDay;
   
           populateDates();
         })
@@ -221,16 +237,30 @@ $(document).ready(function () {
       if (selectedDay == (i + 1) && selectedYear == year2 && selectedMonth == monthPlus && !(day_element_two.classList.contains('disabled'))) {
         day_element_two.classList.add('selected');
       }
+      day_element_two.addEventListener('click', function() {
+        day_element_two.classList.add('selected');
+      })
       
       if (!(day_element_two.classList.contains('disabled'))) {
         day_element_two.addEventListener('click', function () {
           selectedDate = new Date(year2 + '-' + (monthPlus + 1) + '-' + (i + 1));
           selectedDay = (i + 1);
+          
           selectedMonth = monthPlus;
           selectedYear = year2;
-  
-          selected_date_element.textContent = formatDate(selectedDate);
-          selected_date_element.dataset.value = selectedDate;
+          
+          
+          if(selectedDay > prevDay2) {
+            selected_date_element_two.textContent = formatDate(selectedDate);
+            selected_date_element_two.dataset.value = selectedDate;
+          }
+          else {
+            selected_date_element_two.innerHTML = '';
+            selected_date_element.textContent = formatDate(selectedDate);
+            selected_date_element.dataset.value = selectedDate;
+          }
+          prevDay2 = selectedDay;
+          
   
           populateDates();
         })
