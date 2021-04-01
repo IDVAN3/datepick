@@ -49,15 +49,15 @@ $(document).ready(function () {
   populateDates();
   populateWeek();
 
-  const prev_mth_element_false = document.querySelector('.date-picker .dates .month .false');
+  const prev_mth_element_false = document.querySelector('.date-picker .dates .month');
 
   // EVENT LISTENERS
   date_picker_element.addEventListener('click', toggleDatePicker);
   next_mth_element.addEventListener('click', goToNextMonth);
   
 
-  if(prev_mth_element_false) {
-    prev_mth_element_false.addEventListener('click', falsePrevMonth);
+  if(prev_mth_element_false.classList.contains('false')) {
+    prev_mth_element.addEventListener('click', falsePrevMonth);
   }
   else {
     prev_mth_element.addEventListener('click', goToPrevMonth);
@@ -90,12 +90,14 @@ $(document).ready(function () {
     populateDates();
 
     prev_mth_element.addEventListener('click', goToPrevMonth);
-    
+    prev_mth_element_false.classList.remove('false');
   }
 
   function goToPrevMonth(e) {
     e.preventDefault();
-    
+    if (month == monthToday) {
+      prev_mth_element_false.classList.add('false');
+    }
     
     if(prev_mth_element_false.classList.contains('false')){
       prev_mth_element_false.addEventListener('click', falsePrevMonth);

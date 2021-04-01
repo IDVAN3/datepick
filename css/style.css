@@ -181,6 +181,9 @@ body.lock {
   font-size: 14px;
   line-height: 12px;
 }
+.date-picker .dates .month.false .prev-mth {
+  color: #E4E4E4;
+}
 .date-picker .dates .month .date-arrows {
   width: 35px;
   height: 35px;
@@ -195,9 +198,6 @@ body.lock {
 }
 .date-picker .dates .month .date-arrows:active {
   background-color: #00ca85;
-}
-.date-picker .dates .month .date-arrows.false {
-  color: #E4E4E4;
 }
 .date-picker .dates .days {
   display: grid;
