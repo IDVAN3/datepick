@@ -5,6 +5,7 @@ $(document).ready(function () {
       /*=== NATIVE DATERANGEPICKER ===*/
   const date_picker_element = document.querySelector('.date-picker');
   const selected_date_element = document.querySelector('.date-picker .selected-date');
+  
   const selected_date_element_two = document.querySelector('.date-picker .selected-date-two');
   const dates_element = document.querySelector('.date-picker .dates');
   const mth_element = document.querySelector('.date-picker .dates .month .mth');
@@ -31,6 +32,7 @@ $(document).ready(function () {
 
   let selectedDate = date;
   let selectedDay = day;
+  let selectedDayTwo = 40;
   let selectedMonth = month;
   let selectedYear = year;
   let monthPlus = month + 1;
@@ -195,10 +197,11 @@ $(document).ready(function () {
       }
       day_element.textContent = i + 1;
 
-      if (selectedDay == (i + 1) && selectedYear == year && selectedMonth == month && !(day_element.classList.contains('disabled'))) {
-        day_element.classList.add('selected');
-      }
+      
       if (!(day_element.classList.contains('disabled'))) {
+        if (selectedDay == (i + 1) && selectedYear == year && selectedMonth == month && !(day_element.classList.contains('disabled'))) {
+          day_element.classList.add('selected');
+        }
         day_element.addEventListener('click', function () {
           selectedDate = new Date(year + '-' + (month + 1) + '-' + (i + 1));
           selectedDay = (i + 1);
@@ -209,11 +212,6 @@ $(document).ready(function () {
             selected_date_element_two.textContent = formatDate(selectedDate);
             selected_date_element_two.dataset.value = selectedDate;
           }
-          // else if (prevDay != 40 && selectedMonth < month) {
-            // selected_date_element.textContent = formatDate(selectedDate);
-            // selected_date_element.dataset.value = selectedDate;
-            // console.log(prevDay)
-          // }
           else {
             selected_date_element_two.innerHTML = '';
             selected_date_element.textContent = formatDate(selectedDate);
@@ -234,32 +232,44 @@ $(document).ready(function () {
       const day_element_two = document.createElement('div');
       day_element_two.classList.add('day');
       day_element_two.textContent = i + 1;
-      if (selectedDay == (i + 1) && selectedYear == year2 && selectedMonth == monthPlus && !(day_element_two.classList.contains('disabled'))) {
-        day_element_two.classList.add('selected');
-      }
-      day_element_two.addEventListener('click', function() {
-        day_element_two.classList.add('selected');
-      })
+      
+      
       
       if (!(day_element_two.classList.contains('disabled'))) {
+        
+        if (selectedDayTwo == (i + 1) && selectedYear == year2 && selectedMonth == monthPlus && !(day_element_two.classList.contains('disabled'))) {
+          day_element_two.classList.add('selected');
+        }
         day_element_two.addEventListener('click', function () {
           selectedDate = new Date(year2 + '-' + (monthPlus + 1) + '-' + (i + 1));
-          selectedDay = (i + 1);
+          selectedDayTwo = (i + 1);
           
           selectedMonth = monthPlus;
           selectedYear = year2;
-          
-          
-          if(selectedDay > prevDay2) {
+          let isEmpty = document.querySelector('.date-picker .selected-date').innerHTML === "";
+          console.log(isEmpty)
+          if(!isEmpty) {
+            console.log('dd')
             selected_date_element_two.textContent = formatDate(selectedDate);
             selected_date_element_two.dataset.value = selectedDate;
+            // if(selectedDayTwo > prevDay2 && selectedDay <=31 && selectedDay >= 1) {
+              
+            //   selected_date_element_two.textContent = formatDate(selectedDate);
+            //   selected_date_element_two.dataset.value = selectedDate;
+            // }
+            // else {
+            //   selected_date_element_two.innerHTML = '';
+            //   selected_date_element.textContent = formatDate(selectedDate);
+            //   selected_date_element.dataset.value = selectedDate;
+            // }
           }
           else {
             selected_date_element_two.innerHTML = '';
             selected_date_element.textContent = formatDate(selectedDate);
             selected_date_element.dataset.value = selectedDate;
           }
-          prevDay2 = selectedDay;
+          
+          prevDay2 = selectedDayTwo;
           
   
           populateDates();
