@@ -37,7 +37,7 @@ $(document).ready(function () {
   let selectedYear = year;
   let monthPlus = month + 1;
   let prevDay = 40;
-  let prevDay2 = 40;
+  let prevDay2 = 0;
   
 
   mth_element.textContent = months[month] + ' ' + year;
@@ -205,6 +205,7 @@ $(document).ready(function () {
           day_element.classList.add('selected');
         }
         day_element.addEventListener('click', function () {
+          selected_date_element.classList.add('active');
           selectedDate = new Date(year + '-' + (month + 1) + '-' + (i + 1));
           selectedDay = (i + 1);
           selectedMonth = month;
@@ -243,35 +244,61 @@ $(document).ready(function () {
           day_element_two.classList.add('selected');
         }
         day_element_two.addEventListener('click', function () {
+          selected_date_element.classList.add('active');
           selectedDate = new Date(year2 + '-' + (monthPlus + 1) + '-' + (i + 1));
           selectedDayTwo = (i + 1);
           
           selectedMonth = monthPlus;
           selectedYear = year2;
           let isEmpty = document.querySelector('.date-picker .selected-date').innerHTML === "";
-          console.log(isEmpty)
-          if(!isEmpty) {
-            console.log('dd')
-            selected_date_element_two.textContent = formatDate(selectedDate);
-            selected_date_element_two.dataset.value = selectedDate;
-            // if(selectedDayTwo > prevDay2 && selectedDay <=31 && selectedDay >= 1) {
+          let isEmptyTwo = document.querySelector('.date-picker .selected-date-two').innerHTML === "";
+          let dataValue = selected_date_element.getAttribute("data-value");
+          let dataValueTwo = selected_date_element_two.getAttribute("data-value");
+          let parseDataValue = Date.parse(dataValue);
+          let parseDataValueTwo = Date.parse(dataValueTwo);
+          let dt = new Date(parseDataValue);
+          let dt2 = new Date(parseDataValueTwo);
+          let parseMonth = dt.getMonth();
+          let parseMonthTwo = dt2.getMonth();
+          
+          
+          if (!isEmpty) {
+
+            if(selectedDayTwo > prevDay2) {
+              selected_date_element_two.textContent = formatDate(selectedDate);
+              selected_date_element_two.dataset.value = selectedDate;
+              prevDay2 = selectedDayTwo;
+            }
+            
+            else if(parseMonth !== parseMonthTwo && parseDataValueTwo > parseDataValue) {
+              selected_date_element_two.textContent = formatDate(selectedDate);
+              selected_date_element_two.dataset.value = selectedDate;
               
-            //   selected_date_element_two.textContent = formatDate(selectedDate);
-            //   selected_date_element_two.dataset.value = selectedDate;
-            // }
-            // else {
-            //   selected_date_element_two.innerHTML = '';
-            //   selected_date_element.textContent = formatDate(selectedDate);
-            //   selected_date_element.dataset.value = selectedDate;
-            // }
+              
+            }
+            else {
+              selected_date_element_two.innerHTML = '';
+              selected_date_element.textContent = formatDate(selectedDate);
+              selected_date_element.dataset.value = selectedDate;
+            }
           }
+          
+          
           else {
-            selected_date_element_two.innerHTML = '';
-            selected_date_element.textContent = formatDate(selectedDate);
-            selected_date_element.dataset.value = selectedDate;
+            if(parseDataValueTwo > parseDataValue && !isEmptyTwo) {
+              selected_date_element_two.textContent = formatDate(selectedDate);
+              selected_date_element_two.dataset.value = selectedDate;
+            }
+            else {
+              selected_date_element_two.innerHTML = '';
+              selected_date_element.textContent = formatDate(selectedDate);
+              selected_date_element.dataset.value = selectedDate;
+            }
+            
           }
           
           prevDay2 = selectedDayTwo;
+          
           
   
           populateDates();
